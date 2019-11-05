@@ -1,0 +1,37 @@
+<div class="col-md-10 m-auto">
+    <h1 class="text-center">Meus Lembretes</h1>
+    <hr>
+    <div class="row mb-4">
+        <div class="col-md-6 text-center mb-1">
+            <a class="btn btn-primary text-white " ng-click="$ctrl.notifyMe()"> Forçar busca de
+                lembretes</a>
+        </div>
+        <div class="col-md-6 text-center mb-1">
+            <a class="btn btn-primary text-white " href="#!/lembrete">Adicione novos lembretes</a>
+        </div>
+
+    </div>
+</div>
+
+<div class="col-md-8 m-auto p-2 border bg-primary ">
+    <h3 class="text-white text-center">Meus Lembretes do Dia</h3>
+    <hr>
+    <div class="col-md-12 bg-white" ng-if="$ctrl.lembretesRecentes.length < 1">
+        <p class="text-center" >
+            Você não possui lembretes para hoje!<br>
+            Adicione seus lembretes.
+        </p>
+    </div>
+    <div style="max-height: 400px;overflow: auto">
+        <ul class="list-group" ng-repeat="lembrete in $ctrl.lembretesRecentes">
+            <li class="list-group-item mb-1">
+                ID {{lembrete.id}}<br>
+                Lembrete: {{lembrete.lembrete}}<br>
+                Data Inicio: {{lembrete.data_inicio | date:'dd/MM/y'}}<br>
+                Data Fim: {{lembrete.data_fim | date:'dd/MM/y'}}<br>
+                <a class="btn btn-primary btn-sm text-white" ng-click="$ctrl.estouCiente(lembrete.id)"
+                   ng-if="!lembrete.ciente">Ciente</a>
+            </li>
+        </ul>
+    </div>
+</div>

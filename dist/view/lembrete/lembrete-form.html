@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row mb-2">
+        <a class="btn btn-primary text-white float-right" href="#!/home">Lembretes do dia</a>
+    </div>
+    <div class="row">
+        <div class="col-md-6 p-2 border mr-1 mb-4 bg-dark text-white">
+            <h3 class="text-center">Novo Lembrete</h3>
+            <hr>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Data Inicio</label>
+                    <input type="date" ng-model="$ctrl.lembrete.dataInicio" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Data Fim</label>
+                    <input type="date" ng-model="$ctrl.lembrete.dataFim" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label>Lembrete</label>
+                    <textarea class="form-control"
+                              ng-model="$ctrl.lembrete.lembrete">{{$ctrl.lembrete.lembrete}}</textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Local</label>
+                    <textarea class="form-control"
+                              ng-model="$ctrl.lembrete.local">{{$ctrl.lembrete.lembrete}}</textarea>
+                </div>
+            </div>
+            <inpuy type="hidde" ng-model="$ctrl.lembrete.id">
+            <div class="col-md-12 text-center">
+                <a class="btn btn-primary text-white" ng-click="$ctrl.createLembretes()" ng-if="$ctrl.lembrete.id == ''"> Salvar</a>
+                <a class="btn btn-primary text-white" ng-click="$ctrl.updateLembretes()" ng-if="$ctrl.lembrete.id != ''"> Editar</a>
+                <a class="btn btn-danger text-white" ng-click="$ctrl.cancelar()" ng-if="$ctrl.lembrete.id != ''"> Cancelar</a>
+
+            </div>
+        </div>
+
+        <div class="col-md-5 p-2 border bg-primary">
+            <h3 class="text-white text-center">Meus Lembretes</h3>
+            <hr>
+            <div style="max-height: 400px;overflow: auto">
+                <ul class="list-group" ng-repeat="lembrete in $ctrl.lembretes">
+                    <li class="list-group-item mb-1">
+                        ID {{lembrete.id}}<br>
+                        Lembrete: {{lembrete.lembrete}}<br>
+                        Data Inicio: {{lembrete.data_inicio | date:'dd/MM/y'}}<br>
+                        Data Fim: {{lembrete.data_fim | date:'dd/MM/y'}}<br>
+                        <div class="btn-group">
+                            <a class="btn btn-primary btn-sm text-white" ng-click="$ctrl.findID(lembrete.id)">Editar</a>
+                            <a class="btn btn-danger btn-sm text-white" ng-click="$ctrl.excluir(lembrete.id)">Excluir</a>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
