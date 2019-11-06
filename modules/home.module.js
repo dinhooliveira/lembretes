@@ -4,18 +4,9 @@ angular.module('home', []).component('home', {
             self = this;
             this.lembretesRecentes = [];
             this.notifyMe = function () {
-                /**Verifica se o browser suporta notificações**/
                 if (!("Notification" in window)) {
                     alert("Este browser não suporta notificações de Desktop");
-                }
-                /**
-                 *  Let's check whether notification permissions have already been granted
-                 */
-
-                else if (Notification.permission === "granted") {
-                    /**
-                     *  // If it's okay let's create a notification
-                     */
+                } else if (Notification.permission === "granted") {
                     this.lembretesRecentes.forEach(function (element) {
                         var notification = new Notification("Novo Lembrete", {
                             body: `\nData Inicio: ${formatDateBR(new Date(element.data_inicio))} \n Data Fim: ${formatDateBR(new Date(element.data_fim))} \n Lembrete: ${element.lembrete} \n Local: ${element.local}`,
@@ -25,10 +16,7 @@ angular.module('home', []).component('home', {
                             event.preventDefault();
                         }
                     })
-                }
-
-                /** Otherwise, we need to ask the user for permission**/
-                else if (Notification.permission !== 'denied') {
+                } else if (Notification.permission !== 'denied') {
                     Notification.requestPermission(function (permission) {
                         // If the user accepts, let's create a notification
                         if (permission === "granted") {
@@ -36,10 +24,6 @@ angular.module('home', []).component('home', {
                         }
                     });
                 }
-
-                /**At last, if the user has denied notifications, and you
-                 *want to be respectful there is no need to bother them any more.
-                 **/
             }
 
             function select() {
@@ -76,13 +60,16 @@ angular.module('home', []).component('home', {
                     alert("Não foi possivel informar que esta ciente do lembrete");
                 });
             };
-
             this.estouCiente = function (id) {
                 ciente(id);
             }
-            var stopTime = $interval(select(), 60000);
+            select();
+            var stopTime = setInterval(function () {
+                select();
+                console.log("teste")
+            }, 30000);
             $scope.$on('$destroy', function () {
-                $interval.cancel(stopTime);
+                clearInterval(stopTime);
             });
         }]
     }
